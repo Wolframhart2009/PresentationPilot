@@ -7,12 +7,12 @@ public class VisualBasic implements toLanguage{
 	private String header;
 	
 	public VisualBasic(){
-		this.header = "VB_Pilot";
+		this.header = "VB_Pilot.dll";
 	}
 
 	@Override
 	public String Translate(String s) {
-		System.out.println(add(5, 5));
+		add(5, 5);
 		return null;
 	}
 

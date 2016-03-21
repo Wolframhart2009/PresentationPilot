@@ -23,7 +23,7 @@ public class Interpreter {
 	}
 	
 	public void loadLanguage(){
-		System.loadLibrary(end.getHeader());
+		System.loadLibrary("wrappers/" + end.getHeader());
 	}
 	
 	
