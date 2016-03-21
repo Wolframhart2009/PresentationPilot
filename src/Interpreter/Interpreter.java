@@ -1,4 +1,6 @@
-package Interpreter;
+package interpreter;
+
+import interpreter.language.toLanguage;
 
 public class Interpreter {
 
@@ -7,4 +9,16 @@ public class Interpreter {
 	public Interpreter(){
 		
 	}
+	
+	public String Interpret(String s){
+		
+		return null;
+	}
+	
+	private boolean saveDoc(String s){
+		
+		return false;
+	}
+	
+	
 }
