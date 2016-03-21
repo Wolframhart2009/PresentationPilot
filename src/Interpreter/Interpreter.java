@@ -6,8 +6,10 @@ public class Interpreter {
 
 	private toLanguage end;
 	
-	public Interpreter(){
+	public Interpreter(toLanguage e){
+		this.end = e;
 		
+		loadLanguage();
 	}
 	
 	public String Interpret(String s){
@@ -18,6 +20,10 @@ public class Interpreter {
 	private boolean saveDoc(String s){
 		
 		return false;
+	}
+	
+	public void loadLanguage(){
+		System.loadLibrary(end.getHeader());
 	}
 	
 	

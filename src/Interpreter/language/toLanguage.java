@@ -5,4 +5,5 @@ public interface toLanguage {
 	
 	public String Translate(String s);
 	public String buildDoc(String s);
+	public String getHeader(); 
 }
