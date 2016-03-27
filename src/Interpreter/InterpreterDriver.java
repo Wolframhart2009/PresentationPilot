@@ -1,5 +1,6 @@
 package interpreter;
 
+import interpreter.Interpreter;
 import interpreter.language.VisualBasic;
 
 public class InterpreterDriver {

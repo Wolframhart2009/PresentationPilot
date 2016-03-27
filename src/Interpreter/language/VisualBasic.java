@@ -4,10 +4,10 @@ public class VisualBasic implements toLanguage{
 	
 	public native int add(int x, int y);
 	
-	private String header;
+	private static final String header = "VB_Pilot.dll";
 	
 	public VisualBasic(){
-		this.header = "VB_Pilot.dll";
+            
 	}
 
 	@Override

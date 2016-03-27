@@ -9,7 +9,7 @@ public class Interpreter {
 	public Interpreter(toLanguage e){
 		this.end = e;
 		
-		loadLanguage();
+		//loadLanguage();
 	}
 	
 	public String Interpret(String s){
@@ -22,7 +22,7 @@ public class Interpreter {
 		return false;
 	}
 	
-	public void loadLanguage(){
+	private void loadLanguage(){
 		System.loadLibrary("wrappers/" + end.getHeader());
 	}
 	
