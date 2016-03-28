@@ -4,7 +4,7 @@ public class VisualBasic implements toLanguage{
 	
 	public native int add(int x, int y);
 	
-	private static final String header = "VB_Pilot.dll";
+	private static final String header = "libVB_Pilot";
 	
 	public VisualBasic(){
             
@@ -23,7 +23,7 @@ public class VisualBasic implements toLanguage{
 
 	@Override
 	public String getHeader() {
-		return header;
+		return VisualBasic.header;
 	}
 	
 

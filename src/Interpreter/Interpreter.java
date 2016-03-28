@@ -4,12 +4,12 @@ import interpreter.language.toLanguage;
 
 public class Interpreter {
 
-	private toLanguage end;
+	private final toLanguage end;
 	
 	public Interpreter(toLanguage e){
 		this.end = e;
 		
-		//loadLanguage();
+		loadLanguage();
 	}
 	
 	public String Interpret(String s){
@@ -23,7 +23,7 @@ public class Interpreter {
 	}
 	
 	private void loadLanguage(){
-		System.loadLibrary("wrappers/" + end.getHeader());
+            System.loadLibrary(end.getHeader());
 	}
 	
 	
