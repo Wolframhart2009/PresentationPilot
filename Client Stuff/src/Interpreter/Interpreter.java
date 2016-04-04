@@ -9,7 +9,7 @@ public class Interpreter {
 	public Interpreter(toLanguage e){
 		this.end = e;
 		
-		loadLanguage();
+		//loadLanguage();
 	}
 	
 	public String Interpret(String s){

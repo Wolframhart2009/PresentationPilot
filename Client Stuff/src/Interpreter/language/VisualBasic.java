@@ -1,9 +1,7 @@
 package interpreter.language;
 
 public class VisualBasic implements toLanguage{
-	
-	public native int add(int x, int y);
-	
+		
 	private static final String header = "libVB_Pilot";
 	
 	public VisualBasic(){
@@ -12,7 +10,7 @@ public class VisualBasic implements toLanguage{
 
 	@Override
 	public String Translate(String s) {
-		add(5, 5);
+		
 		return null;
 	}
 
@@ -25,6 +23,10 @@ public class VisualBasic implements toLanguage{
 	public String getHeader() {
 		return VisualBasic.header;
 	}
+        
+        public void forwardSlide(){
+            Runtime.getRuntime().exec();
+        }
 	
 
 }
