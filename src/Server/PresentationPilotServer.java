@@ -6,6 +6,19 @@ package server;
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.poi.POIOLE2TextExtractor;
+import org.apache.poi.POITextExtractor;
+import org.apache.poi.extractor.ExtractorFactory;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.xslf.extractor.XSLFPowerPointExtractor;
+import org.apache.poi.xslf.usermodel.XMLSlideShow;
+import org.apache.poi.hslf.extractor.PowerPointExtractor;
+import org.apache.poi.hslf.usermodel.HSLFSlideShow;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.xmlbeans.XmlException;
 /**
  *
  * @author Tom
@@ -22,22 +35,13 @@ public class PresentationPilotServer {
     static boolean first;
     static StringBuffer process;
     static String TimeStamp;
-    public static void main(String[] args) {
-        /*String host = "localhost";
-        int port = 19876;
-        
-        StringBuffer instr = new StringBuffer();
-        String TimeStamp;
-        try{
-            InetAddress address = InetAddress.getByName(host);
-            Socket connection = new Socket(address,port);
-        }
-        catch(IOException e){
-            System.err.println("IOException: "+e.getMessage());
-        }*/
+    public static void main(String[] args) throws InvalidFormatException, OpenXML4JException, XmlException {
        try{
            socket = new ServerSocket(port);
            System.out.println("Server Initialized");
+           System.out.println("IP Address is "+ InetAddress.getLocalHost().getHostAddress());
+           System.out.println("Port Number is "+ port);
+           readPowerPoint("test");
            int character;
        while(true){
            connection = socket.accept();
@@ -68,5 +72,17 @@ public class PresentationPilotServer {
        {
         System.err.printf("IOException closing: "+e.getMessage());   
        }
+    }
+    public static void readPowerPoint(String pptName) throws IOException, InvalidFormatException, OpenXML4JException, XmlException
+    {
+
+        FileInputStream is = new FileInputStream(pptName+".ppt");
+        POIFSFileSystem fileSystem = new POIFSFileSystem(is);
+        POIOLE2TextExtractor oleTextExtractor = ExtractorFactory.createExtractor(fileSystem);
+        PowerPointExtractor ppe = (PowerPointExtractor) oleTextExtractor;
+        System.out.println("Text: " + ppe.getText());
+         System.out.println("Notes: " + ppe.getNotes());
+        System.out.println("opened ppt");
+
     }
 }
