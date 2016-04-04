@@ -10,7 +10,9 @@ public class VisualBasic implements toLanguage{
 
 	@Override
 	public String Translate(String s) {
-		
+		if(s.equals("Forward")){
+                    forwardSlide();
+                }
 		return null;
 	}
 
@@ -24,8 +26,17 @@ public class VisualBasic implements toLanguage{
 		return VisualBasic.header;
 	}
         
-        public void forwardSlide(){
-            Runtime.getRuntime().exec();
+        public void forwardSlide(){ 
+            try{
+//                String script = "forward.vbs";
+//                String executable = "C:\\windows\\...\\vbs.exe";
+//                String cmdArr[] = {executable, script};
+                
+                Runtime.getRuntime().exec("wscript forward.vbs");
+            }
+            catch(Exception e){
+                System.out.println("Exception: " + e);
+            }
         }
 	
 

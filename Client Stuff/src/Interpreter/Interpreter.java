@@ -13,7 +13,7 @@ public class Interpreter {
 	}
 	
 	public String Interpret(String s){
-		
+		end.Translate(s);
 		return null;
 	}
 	
