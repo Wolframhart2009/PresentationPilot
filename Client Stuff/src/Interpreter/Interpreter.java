@@ -11,7 +11,20 @@ public class Interpreter {
 	}
 	
 	public void Interpret(String s){
-		end.Translate(s);
+		int errorCode = end.Translate(s);
+                switch(errorCode){
+                   case 0:
+                       break; //Everything went well
+                   case 1:
+                       System.out.println("Issue handling outside scripts");
+                       break;
+                   case 2:
+                       System.out.println("Issue using the API");
+                       break;
+                   case 3:
+                       System.out.println("General Issue");
+                       break;
+                }
 	}
 	
 }
