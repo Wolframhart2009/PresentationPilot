@@ -8,23 +8,10 @@ public class Interpreter {
 	
 	public Interpreter(toLanguage e){
 		this.end = e;
-		
-		//loadLanguage();
 	}
 	
-	public String Interpret(String s){
+	public void Interpret(String s){
 		end.Translate(s);
-		return null;
 	}
-	
-	private boolean saveDoc(String s){
-		
-		return false;
-	}
-	
-	private void loadLanguage(){
-            System.loadLibrary(end.getHeader());
-	}
-	
 	
 }

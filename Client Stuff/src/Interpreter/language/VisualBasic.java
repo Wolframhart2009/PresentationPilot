@@ -2,23 +2,25 @@ package interpreter.language;
 
 public class VisualBasic implements toLanguage{
 		
-	private static final String header = "libVB_Pilot";
+	private static final String header = "languages/VisualBasic/";
 	
 	public VisualBasic(){
             
 	}
 
 	@Override
-	public String Translate(String s) {
-		if(s.equals("Forward")){
-                    forwardSlide();
+	public int Translate(String s) {
+                int errorCode = 0;
+            
+                switch(s){
+                    case "Forward":
+                        errorCode = forwardSlide();
+                        break;
+                    case "Backward":
+                        errorCode = backwardSlide();
+                        break;
                 }
-		return null;
-	}
-
-	@Override
-	public String buildDoc(String s) {
-		return null;
+		return errorCode;
 	}
 
 	@Override
@@ -26,17 +28,30 @@ public class VisualBasic implements toLanguage{
 		return VisualBasic.header;
 	}
         
-        public void forwardSlide(){ 
-            try{
-//                String script = "forward.vbs";
-//                String executable = "C:\\windows\\...\\vbs.exe";
-//                String cmdArr[] = {executable, script};
-                
-                Runtime.getRuntime().exec("wscript forward.vbs");
+        public int forwardSlide(){
+            int errorCode = 0;
+            try{ 
+                Runtime.getRuntime().exec("wscript " + header + "forward.vbs");
+                errorCode = 0;
             }
             catch(Exception e){
                 System.out.println("Exception: " + e);
+                errorCode = 1;
             }
+            return errorCode;
+        }
+        
+        public int backwardSlide(){
+            int errorCode = 0;
+            try{ 
+                Runtime.getRuntime().exec("wscript " + header + "backward.vbs");
+                errorCode = 0;
+            }
+            catch(Exception e){
+                System.out.println("Exception: " + e);
+                errorCode = 1;
+            }
+            return errorCode;
         }
 	
 

@@ -10,7 +10,6 @@ public class InterpreterDriver {
                 try{
                     Thread.sleep(5000);
                     n.Interpret("Forward");
-                    
                 }catch(Exception w){
                     
                 }
