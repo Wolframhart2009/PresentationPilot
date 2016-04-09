@@ -15,9 +15,13 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.xslf.extractor.XSLFPowerPointExtractor;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.hslf.extractor.PowerPointExtractor;
+import org.apache.poi.hslf.usermodel.HSLFNotes;
+import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.sl.usermodel.Slide;
+import org.apache.poi.sl.usermodel.SlideShow;
 import org.apache.xmlbeans.XmlException;
 /**
  *
@@ -35,13 +39,14 @@ public class PresentationPilotServer {
     static boolean first;
     static StringBuffer process;
     static String TimeStamp;
-    public static void main(String[] args) throws InvalidFormatException, OpenXML4JException, XmlException {
+    public static void main(String[] args) throws InvalidFormatException, OpenXML4JException, XmlException, IOException {
+        String[] notes = getNotes("test");
        try{
            socket = new ServerSocket(port);
            System.out.println("Server Initialized");
            System.out.println("IP Address is "+ InetAddress.getLocalHost().getHostAddress());
            System.out.println("Port Number is "+ port);
-           readPowerPoint("test");
+           
            int character;
        while(true){
            connection = socket.accept();
@@ -73,16 +78,42 @@ public class PresentationPilotServer {
         System.err.printf("IOException closing: "+e.getMessage());   
        }
     }
-    public static void readPowerPoint(String pptName) throws IOException, InvalidFormatException, OpenXML4JException, XmlException
+    public static String[] getNotes(String pptName) throws IOException, InvalidFormatException, OpenXML4JException, XmlException
     {
 
         FileInputStream is = new FileInputStream(pptName+".ppt");
         POIFSFileSystem fileSystem = new POIFSFileSystem(is);
         POIOLE2TextExtractor oleTextExtractor = ExtractorFactory.createExtractor(fileSystem);
         PowerPointExtractor ppe = (PowerPointExtractor) oleTextExtractor;
-        System.out.println("Text: " + ppe.getText());
-         System.out.println("Notes: " + ppe.getNotes());
-        System.out.println("opened ppt");
-
+        String ppeNotes = ppe.getNotes();
+        String[] notes = new String[1024];
+        int k = 0;
+        int j = 0;
+        for(int i = 0;i<ppe.getNotes().length()-2;i++)
+        {
+            if(ppeNotes.charAt(i)=='\n')
+            {
+               if(ppeNotes.charAt(i+1)=='*')
+               {
+                   if(ppeNotes.charAt(i+2)=='\n')
+                   {
+                      notes[k]= ppeNotes.substring(j, i);
+                      k++;
+                      j=i+3;
+                      i+=3;
+                   }
+               }
+            }
+        }
+        for(int i = 0; i<notes.length;i++)
+        {
+            if(notes[i]==null)
+            {
+              i=notes.length;   
+            }
+            else{
+            System.out.println(notes[i]);}
+        }
+        return notes;
     }
 }
