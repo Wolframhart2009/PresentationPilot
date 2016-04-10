@@ -13,10 +13,10 @@ public class VisualBasic implements toLanguage{
                 int errorCode = 0;
             
                 switch(s){
-                    case "Forward":
+                    case "next":
                         errorCode = forwardSlide();
                         break;
-                    case "Backward":
+                    case "back":
                         errorCode = backwardSlide();
                         break;
                 }
