@@ -13,6 +13,9 @@ public class VisualBasic implements toLanguage{
                 int errorCode = 0;
             
                 switch(s){
+                    case "first":
+                        errorCode = runSlide();
+                        break;
                     case "next":
                         errorCode = forwardSlide();
                         break;
@@ -71,5 +74,17 @@ public class VisualBasic implements toLanguage{
             return errorCode;
         }
 	
+        public int runSlide(){
+            int errorCode = 0;
+            try{ 
+                Runtime.getRuntime().exec("wscript " + header + "runslide.vbs");
+                errorCode = 0;
+            }
+            catch(Exception e){
+                System.out.println("Exception: " + e);
+                errorCode = 1;
+            }
+            return errorCode;
+        }
 
 }
