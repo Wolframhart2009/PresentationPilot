@@ -13,6 +13,9 @@ public class Interpreter {
 	public void Interpret(String s){
 		int errorCode = end.Translate(s);
                 switch(errorCode){
+                    case -1:
+                        System.exit(0); //Temp until we have solved server memory issues
+                        break;
                    case 0:
                        break; //Everything went well
                    case 1:

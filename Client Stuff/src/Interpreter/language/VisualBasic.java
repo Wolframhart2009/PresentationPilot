@@ -2,7 +2,7 @@ package interpreter.language;
 
 public class VisualBasic implements toLanguage{
 		
-	private static final String header = "languages/VisualBasic/";
+	private static final String header = "./languages/VisualBasic/";
 	
 	public VisualBasic(){
             
@@ -19,6 +19,10 @@ public class VisualBasic implements toLanguage{
                     case "back":
                         errorCode = backwardSlide();
                         break;
+                    case "quit":
+                        exit(); //Temp until we are done fixing server memory issue
+                        errorCode = -1;
+                        break;   
                 }
 		return errorCode;
 	}
@@ -45,6 +49,19 @@ public class VisualBasic implements toLanguage{
             int errorCode = 0;
             try{ 
                 Runtime.getRuntime().exec("wscript " + header + "backward.vbs");
+                errorCode = 0;
+            }
+            catch(Exception e){
+                System.out.println("Exception: " + e);
+                errorCode = 1;
+            }
+            return errorCode;
+        }
+        
+        public int exit(){
+            int errorCode = 0;
+            try{ 
+                Runtime.getRuntime().exec("wscript " + header + "quit.vbs");
                 errorCode = 0;
             }
             catch(Exception e){
