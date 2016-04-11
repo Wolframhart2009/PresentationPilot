@@ -92,13 +92,13 @@ public class PresentationPilotServer {
             {
                if(ppeNotes.charAt(i+1)=='*')
                {
-                   if(ppeNotes.charAt(i+2)=='\n')
-                   {
-                      notes[k]= ppeNotes.substring(j, i);
+                   if(ppeNotes.charAt(i+2)=='\n'){          
+                      notes[k]= ppeNotes.substring(j, i);  
+                      notes[k] = notes[k].trim();
                       k++;
-                      j=i+3;
-                      i+=3;
-                   }
+                      j=i+2;
+                      i+=1;                
+                 }
                }
             }
         }
