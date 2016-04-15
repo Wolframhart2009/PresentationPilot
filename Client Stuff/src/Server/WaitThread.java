@@ -39,8 +39,8 @@ public class WaitThread implements Runnable {
             local = LocalDevice.getLocalDevice();
             local.setDiscoverable(DiscoveryAgent.GIAC);
 
-            UUID uuid = new UUID(80087355); // "04c6093b-0000-1000-8000-00805f9b34fb"
-            String url = "btspp://localhost:" + uuid.toString() + ";name=RemoteBluetooth";
+            UUID uuid = new UUID(80087355);
+            String url = "btspp://localhost:" + uuid.toString() + ";name=MainActivity";
             notifier = (StreamConnectionNotifier)Connector.open(url);
         } catch (Exception e) {
             e.printStackTrace();
