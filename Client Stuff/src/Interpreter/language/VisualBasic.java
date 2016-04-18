@@ -86,5 +86,10 @@ public class VisualBasic implements toLanguage{
             }
             return errorCode;
         }
+        
+        @Override
+        public String toString(){
+            return "Visual Basic";
+        }
 
 }

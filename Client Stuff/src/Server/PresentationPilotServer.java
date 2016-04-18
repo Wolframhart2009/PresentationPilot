@@ -15,8 +15,6 @@ import org.apache.poi.hslf.extractor.PowerPointExtractor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.xmlbeans.XmlException;
-import Server.ProcessConnectionThread;
-import Server.WaitThread;
 import java.util.Scanner;
 
 /**
@@ -50,42 +48,50 @@ public class PresentationPilotServer {
                 reader.nextLine();
         }
         if (serverVar==1) {
-            try {
-                intp = new Interpreter(new VisualBasic());
-                socket = new ServerSocket(port);
-                System.out.println("Server Initialized");
-                System.out.println("IP Address is " + InetAddress.getLocalHost().getHostAddress());
-                System.out.println("Port Number is " + port);
+            while(true){
+                try {
+                    intp = new Interpreter(new VisualBasic());
+                    socket = new ServerSocket(port);
+                    System.out.println("Server Initialized");
+                    System.out.println("IP Address is " + InetAddress.getLocalHost().getHostAddress());
+                    System.out.println("Port Number is " + port);
 
-                connection = socket.accept();
-                System.out.println("Hello!");
-                int character;
-                while (true) {
-                    BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
-                    InputStreamReader streamReader = new InputStreamReader(inputStream);
-                    process = new StringBuffer();
-                    while ((character = streamReader.read()) != 10) {
-                        process.append((char) character);
+                    connection = socket.accept();
+                    System.out.println("Hello!");
+                    int character;
+                    while (true) {
+                        BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
+                        InputStreamReader streamReader = new InputStreamReader(inputStream);
+                        process = new StringBuffer();
+                        while ((character = streamReader.read()) != 10 && process.length() < 256) {
+                            process.append((char) character);
+                        }
+
+                        if(process.length() >= 256){
+                            break; //User exited the app illicitly and did not clear the output 
+                            //so clear out incoming events and wait for new connection
+                        }
+                        //If you needed to wait for the app to do something after connection
+                        //we could put a wait block here
+    //           TimeStamp = new java.util.Date().toString();
+    //           String returnCode = "Server responded at"+ TimeStamp + (char)13;
+    //           BufferedOutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
+    //           OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream,"US-ASCII");
+    //           streamWriter.write(returnCode);
+    //           streamWriter.flush();
+
+                        intp.Interpret(process.toString());
+
                     }
-                    System.out.println(process);
-                    //If you needed to wait for the app to do something after connection
-                    //we could put a wait block here
-//           TimeStamp = new java.util.Date().toString();
-//           String returnCode = "Server responded at"+ TimeStamp + (char)13;
-//           BufferedOutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
-//           OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream,"US-ASCII");
-//           streamWriter.write(returnCode);
-//           streamWriter.flush();
-
-                    intp.Interpret(process.toString());
+                } catch (IOException e) {
+                    System.err.printf("IOException: " + e.getMessage());
                 }
-            } catch (IOException e) {
-                System.err.printf("IOException: " + e.getMessage());
-            }
-            try {
-                connection.close();
-            } catch (IOException e) {
-                System.err.printf("IOException closing: " + e.getMessage());
+                try {
+                    connection.close();
+                    socket.close();
+                } catch (IOException e) {
+                    System.err.printf("IOException closing: " + e.getMessage());
+                }
             }
         } else if (serverVar==2){ 
            Thread waitThread = new Thread(new WaitThread());
