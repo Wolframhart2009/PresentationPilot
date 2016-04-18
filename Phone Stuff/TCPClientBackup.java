@@ -13,8 +13,9 @@ public class TCPClient {
 
     //public static final String SERVERIP = "10.0.0.15"; //your computer IP address
     //public static final int SERVERPORT = 4444;
-    public String SERVERIP = "192.168.1.6"; //"10.109.68.143";//"192.168.1.7";
+    public String SERVERIP = "10.109.68.143";//"192.168.1.7";
     public int SERVERPORT = 13453;
+    public String test;
     private String serverMessage;
     private OnMessageReceived mMessageListener = null;
     private boolean mRun = false;
@@ -40,8 +41,8 @@ public class TCPClient {
         }
     }
 
-    public String test(String temp){
-        return temp;
+    public String testGet(){
+        return "testGet";
     }
 
     public void stopClient(){
