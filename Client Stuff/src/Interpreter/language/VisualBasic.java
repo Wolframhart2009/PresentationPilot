@@ -1,5 +1,8 @@
 package interpreter.language;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class VisualBasic implements toLanguage{
 		
 	private static final String header = "./languages/VisualBasic/";
@@ -23,7 +26,6 @@ public class VisualBasic implements toLanguage{
                         errorCode = backwardSlide();
                         break;
                     case "quit":
-                        exit(); //Temp until we are done fixing server memory issue
                         errorCode = -1;
                         break;   
                 }
@@ -34,6 +36,27 @@ public class VisualBasic implements toLanguage{
 	public String getHeader() {
 		return VisualBasic.header;
 	}
+        
+        @Override
+        public String getCurNotes(){
+            StringBuilder s = new StringBuilder();
+            
+            try{
+                Process proc = Runtime.getRuntime().exec("wscript " + header + "gettitleandnotes.vbs");
+//                BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+//                String c;
+//                while((c = br.readLine()) != null){
+//                    s.append(c);
+//                }
+//                
+//                System.out.println(s.toString());
+//                return s.toString();
+                return null;
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
         
         public int forwardSlide(){
             int errorCode = 0;
@@ -86,6 +109,7 @@ public class VisualBasic implements toLanguage{
             }
             return errorCode;
         }
+        
         
         @Override
         public String toString(){

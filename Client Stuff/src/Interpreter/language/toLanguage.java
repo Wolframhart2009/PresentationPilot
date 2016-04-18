@@ -21,7 +21,7 @@ public interface toLanguage {
 	public String getHeader();
         
         /*Input: Nothing
-          Output: Name of implemented language
+          Output: Title of current slide and its attached notes
         */
-        public String toString();
+        public String getCurNotes();
 }

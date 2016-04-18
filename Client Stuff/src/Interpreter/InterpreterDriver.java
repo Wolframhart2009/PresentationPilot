@@ -8,8 +8,8 @@ public class InterpreterDriver {
 		Interpreter n = new Interpreter(new VisualBasic());
 		
                 try{
-                    Thread.sleep(5000);
-                    n.Interpret("Forward");
+                    //Thread.sleep(5000);
+                    n.getCurrentNotes();
                 }catch(Exception w){
                     
                 }

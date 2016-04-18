@@ -23,7 +23,6 @@ public class Interpreter {
                     case -1:
                         errorLog.append("Server Exited").append("\n");
                         releaseErrorLog();
-                        System.exit(0); //Temp until we have solved server memory issues
                         break;
                    case 0:
                        break; //Everything went well
@@ -38,6 +37,10 @@ public class Interpreter {
                        break;
                 }
 	}
+        
+        public String getCurrentNotes(){
+            return(end.getCurNotes());
+        }
         
         public void releaseErrorLog(){
             GregorianCalendar calender = new GregorianCalendar();
