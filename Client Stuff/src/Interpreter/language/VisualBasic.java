@@ -1,7 +1,7 @@
 package interpreter.language;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.util.Scanner;
 
 public class VisualBasic implements toLanguage{
 		
@@ -40,20 +40,26 @@ public class VisualBasic implements toLanguage{
         @Override
         public String getCurNotes(){
             StringBuilder s = new StringBuilder();
+            Scanner noteReader;
             
             try{
-                Process proc = Runtime.getRuntime().exec("wscript " + header + "gettitleandnotes.vbs");
-//                BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
-//                String c;
-//                while((c = br.readLine()) != null){
-//                    s.append(c);
-//                }
-//                
-//                System.out.println(s.toString());
-//                return s.toString();
-                return null;
+                Runtime.getRuntime().exec("wscript " + header + "gettitleandnotes.vbs");
+                File tempFile = new File(header + "currentnotes.txt");
+
+                noteReader = new Scanner(tempFile);
+                
+                while(noteReader.hasNextLine()){
+                   s.append(noteReader.nextLine());
+                }
+                
+                noteReader.close();
+                tempFile.delete();
+                
+                
+                return s.toString();
             }
             catch(Exception e){
+                System.out.println("Error!");
                 return null;
             }
         }

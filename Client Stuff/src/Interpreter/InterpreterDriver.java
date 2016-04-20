@@ -8,8 +8,9 @@ public class InterpreterDriver {
 		Interpreter n = new Interpreter(new VisualBasic());
 		
                 try{
-                    //Thread.sleep(5000);
-                    n.getCurrentNotes();
+                    Thread.sleep(5000);
+                    String s = n.getCurrentNotes();
+                    System.out.println(s);
                 }catch(Exception w){
                     
                 }

@@ -2,6 +2,9 @@ package interpreter;
 
 import interpreter.language.toLanguage;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -39,7 +42,8 @@ public class Interpreter {
 	}
         
         public String getCurrentNotes(){
-            return(end.getCurNotes());
+            String titleNote = end.getCurNotes();
+            return(titleNote);
         }
         
         public void releaseErrorLog(){
