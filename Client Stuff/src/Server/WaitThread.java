@@ -37,7 +37,7 @@ public class WaitThread implements Runnable {
         // setup the server to listen for connection
         try {
             local = LocalDevice.getLocalDevice();
-            local.setDiscoverable(DiscoveryAgent.GIAC);
+            //local.setDiscoverable(DiscoveryAgent.GIAC);
 
             UUID uuid = new UUID(80087355);
             String url = "btspp://localhost:" + uuid.toString() + ";name=MainActivity";

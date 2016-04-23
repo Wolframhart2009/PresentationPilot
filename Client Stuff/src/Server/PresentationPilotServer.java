@@ -4,6 +4,8 @@
  */
 package server;
 
+import GUI.ServerGUI;
+import MultiThreads.MultiThreadedServer;
 import interpreter.Interpreter;
 import interpreter.language.VisualBasic;
 import java.net.*;
@@ -15,7 +17,7 @@ import org.apache.poi.hslf.extractor.PowerPointExtractor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.xmlbeans.XmlException;
-import java.util.Scanner;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -36,73 +38,28 @@ public class PresentationPilotServer {
 
     public static void main(String[] args) throws InvalidFormatException, OpenXML4JException, XmlException, IOException {
         //String[] notes = getNotes("test");
-        int serverVar = 0;
-        Scanner reader = new Scanner(System.in);
-        while(serverVar!=1||serverVar!=2){
-            System.out.println("Enter 1 for Socket Server, Enter 2 for BlueTooth Server:");
-            try{
-            serverVar = reader.nextInt();}
-            catch(Exception e){
-                System.out.print("Incorrect Input");
-                serverVar=0;
-                reader.nextLine();
-        }
-        if (serverVar==1) {
-            while(true){
-                try {
-                    intp = new Interpreter(new VisualBasic());
-                    socket = new ServerSocket(port);
-                    System.out.println("Server Initialized");
-                    System.out.println("IP Address is " + InetAddress.getLocalHost().getHostAddress());
-                    System.out.println("Port Number is " + port);
-
-                    connection = socket.accept();
-                    System.out.println("Hello!");
-                    int character;
-                    while (true) {
-                        BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
-                        InputStreamReader streamReader = new InputStreamReader(inputStream);
-                        process = new StringBuffer();
-                        while ((character = streamReader.read()) != 10 && process.length() < 256) {
-                            process.append((char) character);
-                        }
-
-                        if(process.length() >= 256){
-                            break; //User exited the app illicitly and did not clear the output 
-                            //so clear out incoming events and wait for new connection
-                        }
-                        //If you needed to wait for the app to do something after connection
-                        //we could put a wait block here
-    //           TimeStamp = new java.util.Date().toString();
-    //           String returnCode = "Server responded at"+ TimeStamp + (char)13;
-    //           BufferedOutputStream outputStream = new BufferedOutputStream(connection.getOutputStream());
-    //           OutputStreamWriter streamWriter = new OutputStreamWriter(outputStream,"US-ASCII");
-    //           streamWriter.write(returnCode);
-    //           streamWriter.flush();
-
-                        intp.Interpret(process.toString());
-
-                    }
-                } catch (IOException e) {
-                    System.err.printf("IOException: " + e.getMessage());
-                }
-                try {
-                    connection.close();
-                    socket.close();
-                } catch (IOException e) {
-                    System.err.printf("IOException closing: " + e.getMessage());
-                }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ServerGUI().setVisible(true);
             }
-        } else if (serverVar==2){ 
-           Thread waitThread = new Thread(new WaitThread());
-           waitThread.start();
-        }
-        else
-        {
-            System.out.println(", please try again:\n");
-        }
+        });
     }
-}
+
+    public static void startSocketServer() throws IOException {
+        Socket temp = new Socket();
+        System.out.println("Server Initialized");
+        System.out.println("IP Address is " + InetAddress.getLocalHost().getHostAddress());
+        System.out.println("Port Number is " + port);
+        new Thread(new MultiThreadedServer(temp)).start();
+
+    }
+
+    public static void startBluetoothServer() {
+        Thread waitThread = new Thread(new WaitThread());
+        waitThread.start();
+    }
+
     public static String[] getNotes(String pptName) throws IOException, InvalidFormatException, OpenXML4JException, XmlException {
 
         FileInputStream is = new FileInputStream(pptName + ".ppt");
