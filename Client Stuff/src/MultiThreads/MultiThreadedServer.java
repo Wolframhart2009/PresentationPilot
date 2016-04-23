@@ -27,7 +27,7 @@ public class MultiThreadedServer implements Runnable {
          try {
          System.out.println("Listening...");
          ServerSocket serverSock = new ServerSocket(port);
-         serverSock.accept();
+         server = serverSock.accept();
          System.out.println("Connected!");
          Interpreter intp = new Interpreter(new VisualBasic());    
          PrintStream pstream = new PrintStream(server.getOutputStream());
