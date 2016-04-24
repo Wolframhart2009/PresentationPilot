@@ -41,9 +41,21 @@ public class Interpreter {
                 }
 	}
         
-        public String getCurrentNotes(){
-            String titleNote = end.getCurNotes();
-            return(titleNote);
+        public String[] getCurrentNotes(){
+            String titleNote[] = new String[2];
+            
+            String[] temp = end.getCurNotes();     
+            if(temp != null){
+                //System.out.println("\"" + temp[0] + "\"");
+                //System.out.println("\"" + temp[1] + "\"");
+
+                titleNote[0] = temp[0];
+                titleNote[1] = temp[1];
+                return(titleNote);
+            }
+            else{
+                return null;
+            }
         }
         
         public void releaseErrorLog(){
@@ -64,7 +76,7 @@ public class Interpreter {
               fileWriter.close();
             }
             catch(Exception e){
-                System.out.println("error creating file");
+                //System.out.println("error creating file");
             }
         }
 	

@@ -9,8 +9,9 @@ public class InterpreterDriver {
 		
                 try{
                     Thread.sleep(5000);
-                    String s = n.getCurrentNotes();
-                    System.out.println(s);
+                    String s[] = n.getCurrentNotes();
+                    System.out.println(s[0]);
+                    System.out.println(s[1]);
                 }catch(Exception w){
                     
                 }

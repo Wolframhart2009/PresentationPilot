@@ -35,15 +35,30 @@ public class MultiThreadedServer implements Runnable {
                  ServerSocket serverSock = new ServerSocket(port);
                  server = serverSock.accept();
                  System.out.println("Connected!");
-                 while(true){
-                     intp = new Interpreter(new VisualBasic());
+                 
+                 intp = new Interpreter(new VisualBasic());
+                    
                      
+                 while(true){
                      BufferedInputStream ustream = new BufferedInputStream(server.getInputStream());
                      InputStreamReader sr = new InputStreamReader(ustream);
 
                      PrintWriter mOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(server.getOutputStream())), true);
-                     mOut.println(intp.getCurrentNotes());
+                     
+                     String temp[] = intp.getCurrentNotes();
+                     if(temp != null){
+                         String title = temp[0];
+                         String notes  = temp[1];
+                         if(title != null){
+                            mOut.println(title); //Send Title of slide
+                         }
+
+                         if(notes != null){
+                            mOut.println(notes); //Send notes about slide
+                         }
+                     }
                      mOut.flush();
+                     
                      
                      int c;
                      StringBuilder input = new StringBuilder();
@@ -56,6 +71,22 @@ public class MultiThreadedServer implements Runnable {
                      }
                      
                      intp.Interpret(input.toString());
+                     
+                     //System.out.println("Input: " + input.toString());
+                     
+                     temp = intp.getCurrentNotes();
+                     if(temp != null){
+                         String title = temp[0];
+                         String notes  = temp[1];
+                         if(title != null){
+                            mOut.println(title); //Send Title of slide
+                         }
+
+                         if(notes != null){
+                            mOut.println(notes); //Send notes about slide
+                         }
+                     }
+                     mOut.flush();
                   }
                  server.close();
                  serverSock.close();

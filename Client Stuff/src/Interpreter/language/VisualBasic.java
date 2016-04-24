@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class VisualBasic implements toLanguage{
 		
 	private static final String header = "./languages/VisualBasic/";
-	
 	public VisualBasic(){
             
 	}
@@ -38,28 +37,53 @@ public class VisualBasic implements toLanguage{
 	}
         
         @Override
-        public String getCurNotes(){
-            StringBuilder s = new StringBuilder();
-            Scanner noteReader;
+        public String[] getCurNotes(){
+            String results[] = new String[2];
+            StringBuilder title = new StringBuilder();
+            StringBuilder notes = new StringBuilder();
+            Scanner noteReader = null;
+            File tempFile = null;
             
             try{
-                Runtime.getRuntime().exec("wscript " + header + "gettitleandnotes.vbs");
-                File tempFile = new File(header + "currentnotes.txt");
+                Process proc = Runtime.getRuntime().exec("wscript " + header + "gettitleandnotes.vbs");
+                
+                proc.waitFor(); //Wait for the notes to be read
+                tempFile = new File(header + "currentnotes.txt");
 
-                noteReader = new Scanner(tempFile);
-                
-                while(noteReader.hasNextLine()){
-                   s.append(noteReader.nextLine());
+                if(tempFile.exists()){
+                    noteReader = new Scanner(tempFile);
+
+                    if(noteReader.hasNextLine()){
+                       title.append(noteReader.nextLine());
+                    }
+
+                    while(noteReader.hasNextLine()){
+                       notes.append(noteReader.nextLine());
+                    }
+
+                    noteReader.close();
+                    tempFile.delete();
+
+                    if(title.toString().equals("") || title.toString() == null){ 
+                        title = new StringBuilder(" ");
+                    }
+
+                    if(notes.toString().equals("") || notes.toString() == null){ 
+                        notes = new StringBuilder(" ");
+                    }
+
+                    results[0] = title.toString();
+                    results[1] = notes.toString();
+
+                    return results;
                 }
-                
-                noteReader.close();
-                tempFile.delete();
-                
-                
-                return s.toString();
+                else{
+                    return null;
+                }
             }
             catch(Exception e){
-                System.out.println("Error!");
+                System.out.println(e);
+                System.out.println(tempFile.exists());
                 return null;
             }
         }

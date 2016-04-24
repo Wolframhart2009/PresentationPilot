@@ -23,5 +23,5 @@ public interface toLanguage {
         /*Input: Nothing
           Output: Title of current slide and its attached notes
         */
-        public String getCurNotes();
+        public String[] getCurNotes();
 }
