@@ -26,7 +26,7 @@ public class VisualBasic implements toLanguage{
                         errorCode = backwardSlide();
                         break;
                     case "quit":
-                        errorCode = -1;
+                        errorCode = exit();
                         break;   
                 }
 		return errorCode;

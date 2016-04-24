@@ -18,6 +18,7 @@ import java.net.Socket;
 public class MultiThreadedServer implements Runnable {
    Socket server;
    int port = 13453;
+   Interpreter intp;
    
    public MultiThreadedServer(Socket server) {
       this.server = server;
@@ -27,26 +28,34 @@ public class MultiThreadedServer implements Runnable {
     @Override
     public void run() {
          try {
-         System.out.println("Listening...");
-         ServerSocket serverSock = new ServerSocket(port);
-         server = serverSock.accept();
-         System.out.println("Connected!");
-         Interpreter intp = new Interpreter(new VisualBasic());
-         BufferedInputStream ustream = new BufferedInputStream(server.getInputStream());
-         InputStreamReader sr = new InputStreamReader(ustream);
-         
-         int c;
-         StringBuilder input = new StringBuilder();
-         while((c = sr.read() ) != 10){
-             input.append( (char) c);
-         }
-                 
-         intp.Interpret(input.toString());
-         ustream.close();
-         server.close();
+             while(true){
+                 System.out.println("Listening...");
+                 ServerSocket serverSock = new ServerSocket(port);
+                 server = serverSock.accept();
+                 System.out.println("Connected!");
+                 while(true){
+                     intp = new Interpreter(new VisualBasic());
+                     BufferedInputStream ustream = new BufferedInputStream(server.getInputStream());
+                     InputStreamReader sr = new InputStreamReader(ustream);
+
+                     int c;
+                     StringBuilder input = new StringBuilder();
+                     while((c = sr.read() ) != 10 && input.length() < 256){
+                         input.append( (char) c);
+                     }
+
+                     if(input.length() >= 256){
+                         break;
+                     }
+                     
+                     intp.Interpret(input.toString());
+                  }
+                 server.close();
+                 serverSock.close();
+            }
       }
       catch (IOException e) {
-         System.out.println(e);
+         intp.releaseErrorLog();
       }
     }
 }

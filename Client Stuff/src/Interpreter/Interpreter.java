@@ -27,7 +27,6 @@ public class Interpreter {
                 switch(errorCode){
                     case -1:
                         errorLog.append("Server Exited").append("\n");
-                        releaseErrorLog();
                         break;
                    case 0:
                        break; //Everything went well
