@@ -6,9 +6,11 @@ package MultiThreads;
 import interpreter.Interpreter;
 import interpreter.language.VisualBasic;
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 /**
@@ -35,9 +37,14 @@ public class MultiThreadedServer implements Runnable {
                  System.out.println("Connected!");
                  while(true){
                      intp = new Interpreter(new VisualBasic());
+                     
                      BufferedInputStream ustream = new BufferedInputStream(server.getInputStream());
                      InputStreamReader sr = new InputStreamReader(ustream);
 
+                     PrintWriter mOut = new PrintWriter(new BufferedWriter(new OutputStreamWriter(server.getOutputStream())), true);
+                     mOut.println(intp.getCurrentNotes());
+                     mOut.flush();
+                     
                      int c;
                      StringBuilder input = new StringBuilder();
                      while((c = sr.read() ) != 10 && input.length() < 256){

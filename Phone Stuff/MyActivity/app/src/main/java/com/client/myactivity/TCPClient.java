@@ -1,22 +1,15 @@
 package com.client.myactivity;
 
 import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 
 public class TCPClient {
 
-    //public static final String SERVERIP = "10.0.0.15"; //your computer IP address
-    //public static final int SERVERPORT = 4444;
-    public String SERVERIP = "10.109.68.143";//"192.168.1.7";
-    public int SERVERPORT = 13453;
-    public String test;
     private String serverMessage;
+    public static String SERVERIP; //your computer IP address
+    public static int SERVERPORT;
     private OnMessageReceived mMessageListener = null;
     private boolean mRun = false;
 
@@ -26,7 +19,9 @@ public class TCPClient {
     /**
      *  Constructor of the class. OnMessagedReceived listens for the messages received from server
      */
-    public TCPClient(OnMessageReceived listener) {
+    public TCPClient(OnMessageReceived listener, String ip, int port) {
+        SERVERIP = ip;
+        SERVERPORT = port;
         mMessageListener = listener;
     }
 
@@ -41,27 +36,31 @@ public class TCPClient {
         }
     }
 
-    public String testGet(){
-        return "testGet";
-    }
-
     public void stopClient(){
         mRun = false;
     }
 
-    public void run(String ipString, int port) {
-        //this.SERVERIP = ipString;
-        //this.SERVERPORT = port;
+    public void run() {
+
         mRun = true;
 
         try {
+            //here you must put your computer's IP address.
+            InetAddress serverAddr = InetAddress.getByName(SERVERIP);
+
+            Log.e("TCP Client", "C: Connecting...");
+
             //create a socket to make the connection with the server
-            Socket socket = new Socket(this.SERVERIP, this.SERVERPORT);
+            Socket socket = new Socket(serverAddr, SERVERPORT);
 
             try {
 
                 //send the message to the server
                 out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+
+                Log.e("TCP Client", "C: Sent.");
+
+                Log.e("TCP Client", "C: Done.");
 
                 //receive the message which the server sends back
                 in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

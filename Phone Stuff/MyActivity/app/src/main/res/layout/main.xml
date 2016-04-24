@@ -1,93 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-    android:columnCount="1"
-    android:rowCount="3">
+    android:weightSum="1">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="182dp"
-        android:id="@+id/editText"
-        android:layout_row="0"
-        android:layout_column="0"
-        android:layout_columnSpan="1"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:text="Page"
+        android:id="@+id/page_text" />
 
-    <GridLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="265dp"
-        android:layout_column="0"
-        android:layout_row="1"
-        android:columnCount="3"
-        android:rowCount="4"
-        android:layout_rowSpan="2">
+        android:layout_height="wrap_content"
+        android:id="@+id/notes_text"
+        android:layout_weight="0.96" />
+
+    <LinearLayout android:id="@+id/input"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:gravity="bottom">
+
+        <EditText android:inputType="textNoSuggestions"
+                  android:layout_width="0dp"
+                  android:layout_height="40dp"
+                  android:id="@+id/userInput"
+                  android:layout_weight="1"/>
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:id="@+id/next_button"
-            android:text="Next"
-            android:layout_gravity="right"
-            android:layout_row="1"
-            android:layout_column="2" />
-
-        <EditText
-            android:inputType="number"
-            android:layout_width="97dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/port_text"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:text="Port" />
+            android:id="@+id/ip_button"
+            android:layout_gravity="center_vertical"
+            android:text="Set IP" />
 
-        <EditText
-            android:layout_width="174dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/ip_text"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:text="IP" />
+        <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/port_button"
+                android:layout_gravity="center_vertical"
+                android:text="Set Port" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Connect"
-            android:id="@+id/connect_button"
-            android:layout_row="0"
-            android:layout_column="2" />
+            android:id="@+id/connect_button" />
 
-        <Button android:layout_width="100dp"
-                android:layout_height="75dp"
-                android:id="@+id/back_button"
-            android:text="Back"
-            android:layout_row="1"
-            android:layout_column="0" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom" >
+
+        <EditText
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:id="@+id/editText"
+            android:layout_weight="1" />
 
         <Button
-            android:layout_width="180dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quit"
-            android:id="@+id/quit_button"
-            android:layout_row="2"
-            android:layout_column="1" />
+            android:id="@+id/send_button"
+            android:layout_gravity="center_vertical"
+            android:text="send" />
+    </LinearLayout>
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:id="@+id/first_button"
-            android:text="First"
-            android:layout_row="3"
-            android:layout_column="0" />
-
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:id="@+id/last_button"
-            android:text="Last"
-            android:layout_row="3"
-            android:layout_column="2" />
-    </GridLayout>
-
-</GridLayout>
+</LinearLayout>

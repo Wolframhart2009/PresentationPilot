@@ -10,9 +10,8 @@ Set activeSlide = objPPT.ActivePresentation.SlideShowWindow.View.Slide
 
 slideTitle = activeSlide.Shapes.Title.TextFrame.TextRange.Text 
 
-tempNoteFile.write("<header>")
 tempNoteFile.write(slideTitle)
-tempNoteFile.write("<\header>")
+tempNoteFile.write("\n")
 
 slideNotes = activeSlide.NotesPage.Shapes(2).TextFrame.TextRange.Text
 tempNoteFile.write(slideNotes)
