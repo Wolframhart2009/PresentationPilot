@@ -65,7 +65,7 @@ public class VisualBasic implements toLanguage{
         }
         
         public int forwardSlide(){
-            int errorCode = 0;
+            int errorCode;
             try{ 
                 Runtime.getRuntime().exec("wscript " + header + "forward.vbs");
                 errorCode = 0;
@@ -78,7 +78,7 @@ public class VisualBasic implements toLanguage{
         }
         
         public int backwardSlide(){
-            int errorCode = 0;
+            int errorCode;
             try{ 
                 Runtime.getRuntime().exec("wscript " + header + "backward.vbs");
                 errorCode = 0;
@@ -91,7 +91,7 @@ public class VisualBasic implements toLanguage{
         }
         
         public int exit(){
-            int errorCode = 0;
+            int errorCode;
             try{ 
                 Runtime.getRuntime().exec("wscript " + header + "quit.vbs");
                 errorCode = 0;
@@ -104,7 +104,7 @@ public class VisualBasic implements toLanguage{
         }
 	
         public int runSlide(){
-            int errorCode = 0;
+            int errorCode;
             try{ 
                 Runtime.getRuntime().exec("wscript " + header + "runslide.vbs");
                 errorCode = 0;

@@ -22,6 +22,7 @@ public class Interpreter {
 	
 	public void Interpret(String s){
                 errorLog.append("Event Triggered: ").append(s).append("\n");
+                System.out.println("Translation requested on: " + s);
 		int errorCode = end.Translate(s);
                 switch(errorCode){
                     case -1:
