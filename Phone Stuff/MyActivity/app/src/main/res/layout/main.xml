@@ -9,13 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Page"
-        android:id="@+id/page_text" />
+        android:id="@+id/page_text"
+        android:textColor="@color/accent_material_light"
+        android:layout_weight="0.05"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/notes_text"
-        android:layout_weight="0.96" />
+        android:layout_weight="0.96"
+        android:textSize="18dp" />
 
     <LinearLayout android:id="@+id/input"
                   android:layout_width="fill_parent"
@@ -55,21 +59,35 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="bottom" >
-
-        <EditText
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:id="@+id/editText"
-            android:layout_weight="1" />
+        android:gravity="bottom"
+        android:showDividers="beginning|middle|end">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/send_button"
+            android:id="@+id/next_button"
             android:layout_gravity="center_vertical"
-            android:text="send" />
+            android:text="NEXT" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/start_button"
+            android:layout_gravity="center_vertical"
+            android:text="START" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/quit_button"
+            android:layout_gravity="center_vertical"
+            android:text="QUIT" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/back_button"
+            android:text="BACK" />
     </LinearLayout>
 
 </LinearLayout>

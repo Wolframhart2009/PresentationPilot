@@ -24,30 +24,68 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        final Button send = (Button)findViewById(R.id.send_button);
         final Button ip = (Button)findViewById(R.id.ip_button);
         final Button port = (Button)findViewById(R.id.port_button);
         final Button connect = (Button)findViewById(R.id.connect_button);
+        final Button next = (Button)findViewById(R.id.next_button);
+        final Button back = (Button)findViewById(R.id.back_button);
+        final Button quit = (Button)findViewById(R.id.quit_button);
+        final Button start = (Button)findViewById(R.id.start_button);
 
-        editText = (EditText) findViewById(R.id.editText);
         userInput = (EditText) findViewById(R.id.userInput);
         notesView = (TextView) findViewById(R.id.notes_text);
         pageView = (TextView) findViewById(R.id.page_text);
 
 
-        send.setOnClickListener(new View.OnClickListener() {
+        next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String message = editText.getText().toString();
+                String message = "next\n";
 
                 //sends the message to the server
                 if (mTcpClient != null) {
                     mTcpClient.sendMessage(message);
                 }
+            }
+        });
 
-                //clear user textataSetChanged();
-                editText.setText("");
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String message = "back\n";
+
+                //sends the message to the server
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage(message);
+                }
+            }
+        });
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String message = "first\n";
+
+                //sends the message to the server
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage(message);
+                }
+            }
+        });
+
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String message = "quit\n";
+
+                //sends the message to the server
+                if (mTcpClient != null) {
+                    mTcpClient.sendMessage(message);
+                }
             }
         });
 
@@ -55,6 +93,7 @@ public class MainActivity extends Activity
             @Override
             public void onClick(View view){
                 ipAddress = userInput.getText().toString();
+                ip.setText(ipAddress);
                 userInput.setText("");
             }
         });
@@ -62,7 +101,9 @@ public class MainActivity extends Activity
         port.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                portNum = Integer.parseInt(userInput.getText().toString());
+                String temp = userInput.getText().toString();
+                portNum = Integer.parseInt(temp);
+                port.setText(temp);
                 userInput.setText("");
             }
         });
@@ -107,6 +148,7 @@ public class MainActivity extends Activity
                 head = false;
             }
             else{
+                head = true;
                 notesView.setText(values[0]);
             }
         }
